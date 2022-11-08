@@ -1,0 +1,11 @@
+Animation Name | Frame #
+
+Idle | 0,1
+Walk | 1,2
+Neutral Attack | 2,3,2
+Crouch Idle | 4
+Crouch Walk | 4,5
+Crouch Attack| 6,7
+Jump Idle | 8,9
+Jump Attack | 10
+
