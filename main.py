@@ -1,6 +1,6 @@
 import pygame, sys, random
 from pygame.locals import *
-
+from player1 import *
 """Game Setup"""
 
 pygame.init()
@@ -8,7 +8,7 @@ pygame.init()
 
 """Main variable setup"""
 
-gameCamptionNameList = ["HJONK", "NOT THE GEEEEEEEEEEEEEEEEEEESE!", "Wait, isn't that a duck?"]
+gameCamptionNameList = ["HJONK", "NOT THE GEEEEEEEEEEEEEEEEEEESE!", "Wait, isn't that a duck?", "duck,duck, who?"]
 #List of window names ~AS
 pygame.display.set_caption(gameCamptionNameList[random.randint(0, len(gameCamptionNameList)-1)])
 #Sets window name ~AS
