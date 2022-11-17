@@ -1,6 +1,7 @@
 import pygame, sys, random
 from pygame.locals import *
-from player1 import *
+import player
+
 """Game Setup"""
 
 pygame.init()
@@ -12,6 +13,10 @@ gameCamptionNameList = ["HJONK", "NOT THE GEEEEEEEEEEEEEEEEEEESE!", "Wait, isn't
 #List of window names ~AS
 pygame.display.set_caption(gameCamptionNameList[random.randint(0, len(gameCamptionNameList)-1)])
 #Sets window name ~AS
+
+#makes clock object just so animatioins and everything aren't timed to frames ~MA
+clock = pygame.time.Clock()
+
 try:
     bg = pygame.image.load("BackgroundV1.0.png")
     #Gets background image ~AS
@@ -35,6 +40,13 @@ windowMain.blit(bg, bgRect)
 pygame.display.update()
 #updates screen ~AS
 
+# Makes player one ~MA
+p1 = player.Player1(windowMain.get_rect().center)
+
+#Makes list of all game objects ~MA
+#for rn just p1
+objects = [p1]
+
 """Game ending"""
 
 while True:
@@ -46,3 +58,11 @@ while True:
             #ends pygame ~AS
             sys.exit()
             #closes window ~AS
+    #loops to update all game objects ~MA
+    for object in objects:
+        #updates background and then updates object in background ~MA
+        windowMain.blit(bg, object.pos,object.pos)
+        windowMain.blit(object.p1StandIdleAnim[0],object.pos)
+    pygame.display.update()
+    #caps the game at 60 fps ~MA
+    clock.tick(60)
