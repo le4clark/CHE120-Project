@@ -55,12 +55,15 @@ y_velocity = 0
 on_ground = True
 ground_level = p1.pos.bottom
 #MY: Initial position is in stand animation
+p1Facing = True
+#dictates facing direction for idle animation, true if right, false if left ~AS
 animation = p1.p1StandIdleAnim[0]
 
 """Game ending"""
 
 while True:
-    
+    animFrame = round(pygame.time.get_ticks()/200)%2
+    #returns 1 or zero to cycle between idle animations ~AS
     #MY: gets a list of all keys being pressed
     keys = pygame.key.get_pressed()
     
@@ -81,23 +84,33 @@ while True:
     #MY: If a is among those pressed
     if keys[pygame.K_a] == True:
         #MY: animation changes to walk and velocity to the left
-        animation = p1.p1StandWalkAnim[0]
+        animation = pygame.transform.flip(p1.p1StandWalkAnim[animFrame], True, False)
+        
         x_velocity = -5
+        p1Facing = False
+        #sets facing to left ~AS
     #MY: If d is among those pressed
-    if keys[pygame.K_d] == True:
+    elif keys[pygame.K_d] == True:
         #MY: animation changes to walk and velocity to the right
-        animation = p1.p1StandWalkAnim[0]
+        animation = p1.p1StandWalkAnim[animFrame]
         x_velocity = 5
+        p1Facing = True
+        #sets facing to right ~AS
     #MY: If a or d are no longer being pressed;
-    if keys[pygame.K_a] == False and keys[pygame.K_d] == False:
+    elif keys[pygame.K_a] == False and keys[pygame.K_d] == False:
         #MY: change animation to standing
-        animation = p1.p1StandIdleAnim[0]
+        if p1Facing: animation = p1.p1StandIdleAnim[animFrame]
+        else: animation = pygame.transform.flip(p1.p1StandIdleAnim[animFrame], True, False)
+        #left and right standing idle facing animations ~AS
         #MY: and set velocity to 0
         x_velocity = 0
     
     #MY: change animation to flying if not on ground
     if not on_ground:
-        animation = p1.p1JumpIdleAnim[0]
+        if p1Facing: animation = p1.p1JumpIdleAnim[animFrame]
+        #Right facing jump idle animation ~AS
+        else: animation = pygame.transform.flip(p1.p1JumpIdleAnim[animFrame], True, False)
+        #Left facing jump idle animation ~AS
     
     #MY: adding gravity acceleration
     y_velocity += 0.3
@@ -112,8 +125,11 @@ while True:
         #MY: the goose is on the ground
         on_ground = True
         #MY: animation changes from flying to stand
-        animation = p1.p1StandIdleAnim[0]
-        
+        #animation = p1.p1StandIdleAnim[0]
+    if p1.pos.centerx < 40: p1.pos.centerx = 41
+    if p1.pos.centerx > 916: p1.pos.centerx = 915
+    #prevention from players going out of bounds
+    print(p1.pos.centerx)
     #Constant check
     for event in pygame.event.get():
         if event.type == QUIT:
