@@ -1,6 +1,7 @@
 import pygame, sys, random
 from pygame.locals import *
 import player
+import music
 
 """Game Setup"""
 
@@ -16,7 +17,6 @@ pygame.display.set_caption(gameCamptionNameList[random.randint(0, len(gameCampti
 
 #makes clock object just so animatioins and everything aren't timed to frames ~MA
 clock = pygame.time.Clock()
-
 try:
     bg = pygame.image.load("BackgroundV1.0.png")
     #Gets background image ~AS
@@ -42,6 +42,7 @@ pygame.display.update()
 
 # Makes player one ~MA
 p1 = player.Player1(windowMain.get_rect().center)
+Music = music.music()
 
 #Makes list of all game objects ~MA
 #for rn just p1
