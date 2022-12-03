@@ -23,7 +23,7 @@ class music:
             """
             song = pygame.mixer.music.load("geeslstheme.wav")
             #sets the volume ~MA
-            pygame.mixer.music.set_volume(0.50)
+            pygame.mixer.music.set_volume(0.03)
         
         
         #plays the song ~MA
