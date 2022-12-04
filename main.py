@@ -47,6 +47,9 @@ p1 = player.Player1(windowMain.get_rect().center)
 p2 = player2.Player2(windowMain.get_rect().center)
 Music = music.music()
 
+#Makes player health ~MA
+p1Health = 100
+p2Health = 100
 #Makes list of all game objects ~MA
 #for rn just p1
 #objects = [p1,p2]
@@ -79,6 +82,11 @@ attackType = 0
 p2AttackBox = (p2.pos.centerx-65, p2.pos.centery-50, 30, 50)
 attackCountdown2 = 0
 attackType2 = 0
+
+#if true than an attack can happen if false than attack can't happen
+#(this is used to make sure that attack doesn't hit multiple times during active frames)
+canAttackp1 = True
+canAttackp2 = True
 #attacktype is 0 for standing and 1 for flying
 while True:
 
@@ -440,6 +448,30 @@ while True:
     windowMain.blit(bg, (0,0))
     windowMain.blit(animation,p1.pos)
     windowMain.blit(animation2,p2.pos)
+
+    #Check to see if player 1's attack colides at all with player two's attack
+    #pygame/
+    
+    colideP1Attack = (pygame.Rect(p1AttackBox)).colliderect(pygame.Rect(p2Hitbox))
+    if colideP1Attack and attackCountdown1 > 0 and canAttackp1:
+        #does damage temp thing
+        p2Health -= 20
+        canAttackp1 = False
+        #debug health print
+        print("P2 health = " + str(p2Health))
+    colideP2Attack = (pygame.Rect(p2AttackBox)).colliderect(pygame.Rect(p1Hitbox))
+    if colideP2Attack and attackCountdown2 > 0 and canAttackp2:
+        #does damge:
+        p1Health -= 20
+        canAttackp2 = False
+        #debug health print
+        print("P1 health = " + str(p1Health))
+
+    
+    if attackCountdown1 <= 0:
+        canAttackp1 = True
+    if attackCountdown2 <= 0:
+        canAttackp2 = True
 
     pygame.display.update()
     #caps the game at 60 fps ~MA
