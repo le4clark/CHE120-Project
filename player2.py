@@ -23,4 +23,4 @@ class Player2:
       imagerec = self.image.get_rect()
       #centers it and places at location ~MA
       imagerec.center = center
-      self.pos = imagerec.move(-300, 200)
+      self.pos = imagerec.move(300, 200)
