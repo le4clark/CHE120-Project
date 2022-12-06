@@ -3,8 +3,6 @@ from pygame.locals import *
 import player
 import player2
 import music
-
-
 """Game Setup"""
 
 pygame.init()
@@ -92,9 +90,11 @@ attackCountdown2 = 0
 attackType2 = 0
 
 #if true than an attack can happen if false than attack can't happen
-#(this is used to make sure that attack doesn't hit multiple times during active frames)
+#(this is used to make sure that attack doesn't hit multiple times during active frames) ~MA
 canAttackp1 = True
 canAttackp2 = True
+
+
 #attacktype is 0 for standing and 1 for flying
 while True:
     if p1.kbx < 0: p1.kbx += 1
@@ -497,6 +497,7 @@ while True:
     if attackCountdown2 <= 0:
         canAttackp2 = True
 
+    
     pygame.display.update()
     #caps the game at 60 fps ~MA
     clock.tick(60)

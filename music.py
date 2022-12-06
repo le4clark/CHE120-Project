@@ -28,5 +28,7 @@ class music:
         
         #plays the song ~MA
         pygame.mixer.music.play(5)
-        
+    #stops the song ~MA
+    def stop():
+        pygame.mixer.music.stop()
         
