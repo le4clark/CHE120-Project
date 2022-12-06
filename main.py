@@ -4,12 +4,23 @@ import player
 import player2
 import music
 
+
 """Game Setup"""
 
 pygame.init()
 #Starts Pygame ~AS
 
 """Main variable setup"""
+
+def OnHit(attackplayer,player):
+    player.health -= 5
+    tempx = (attackplayer.pos.centerx - player.pos.centerx)
+    tempy = (attackplayer.pos.centery - player.pos.centery)
+    if tempx == 0:tempx = 0.000000000000001
+    if tempy == 0:tempy = 0.000000000000001
+    player.kbx = -(tempx/abs(tempx))*5
+    player.kby = -(tempy/abs(tempy))*3
+#Compare player distance to calculate knockback ~LC
 
 gameCamptionNameList = ["HJONK", "NOT THE GEEEEEEEEEEEEEEEEEEESE!", "Wait, isn't that a duck?", "duck,duck, who?"]
 #List of window names ~AS
@@ -47,9 +58,6 @@ p1 = player.Player1(windowMain.get_rect().center)
 p2 = player2.Player2(windowMain.get_rect().center)
 Music = music.music()
 
-#Makes player health ~MA
-p1Health = 100
-p2Health = 100
 #Makes list of all game objects ~MA
 #for rn just p1
 #objects = [p1,p2]
@@ -89,6 +97,16 @@ canAttackp1 = True
 canAttackp2 = True
 #attacktype is 0 for standing and 1 for flying
 while True:
+    if p1.kbx < 0: p1.kbx += 1
+    if p1.kbx > 0: p1.kbx -= 1
+    if p1.kby < 0: p1.kby += 1
+    if p1.kby > 0: p1.kby -= 1
+    if p2.kbx < 0: p2.kbx += 1
+    if p2.kbx > 0: p2.kbx -= 1
+    if p2.kby < 0: p2.kby += 1
+    if p2.kby > 0: p2.kby -= 1
+    #knockback effect ~LC
+
 
     """Player Hitboxes ~AS"""
 
@@ -191,6 +209,9 @@ while True:
     
     #MY: adding gravity acceleration
     y_velocity += 0.3
+
+    x_velocity += p1.kbx
+    y_velocity += p1.kby
     
     #MY: redefines position of p1 hitbox according to velocities
     p1.pos = p1.pos.move(x_velocity, y_velocity)
@@ -286,6 +307,8 @@ while True:
     y_velocity2 += 0.3
     
     #MY: redefines position of p1 hitbox according to velocities
+    x_velocity2 += p2.kbx
+    y_velocity2 += p2.kby
     p2.pos = p2.pos.move(x_velocity2, y_velocity2)
     
     #MY: if the bottom of the hitbox is at ground level;
@@ -314,7 +337,7 @@ while True:
                     #standard attack anim ~AS
                     p1AttackBox = (p1.pos.centerx+75, p1.pos.centery-50, 50, 50)
                     #P1 right attack box ~AS
-                    pygame.draw.rect(bg, (255,0,0), p1AttackBox,2)
+                    #pygame.draw.rect(bg, (255,0,0), p1AttackBox,2)
                     #Debugging draw, comment out later ~AS
                 else:
                     #if facing left ~AS
@@ -322,7 +345,7 @@ while True:
                     #flipped attack anim ~AS
                     p1AttackBox = (p1.pos.centerx-125, p1.pos.centery-50, 50, 50)
                     #P1 left attack box ~AS
-                    pygame.draw.rect(bg, (255,0,0), p1AttackBox,2)
+                    #pygame.draw.rect(bg, (255,0,0), p1AttackBox,2)
                     #Debugging draw, comment out later ~AS
             else:
                 #during lag ~AS
@@ -343,7 +366,7 @@ while True:
                     #jump attack animation ~AS
                     p1AttackBox = (p1.pos.centerx+75, p1.pos.centery+70, 50, 50)
                     #P1 right attack box ~AS
-                    pygame.draw.rect(bg, (255,0,0), p1AttackBox,2)
+                    #pygame.draw.rect(bg, (255,0,0), p1AttackBox,2)
                     #Debugging draw, comment out later ~AS
                     
                 else:
@@ -352,7 +375,7 @@ while True:
                     #flipped jump attack animation ~AS
                     p1AttackBox = (p1.pos.centerx-125, p1.pos.centery+50, 50, 50)
                     #P1 left attack box ~AS
-                    pygame.draw.rect(bg, (255,0,0), p1AttackBox,2)
+                    #pygame.draw.rect(bg, (255,0,0), p1AttackBox,2)
                     #Debugging draw, comment out later ~AS
             else:
                 #during lag ~AS
@@ -381,7 +404,7 @@ while True:
                     #standard attack anim ~AS
                     p2AttackBox = (p2.pos.centerx+75, p2.pos.centery-50, 50, 50)
                     #P2 right attack box ~AS
-                    pygame.draw.rect(bg, (255,0,0), p2AttackBox,2)
+                    #pygame.draw.rect(bg, (255,0,0), p2AttackBox,2)
                     #Debugging draw, comment out later ~AS
                 else:
                     #if facing left ~AS
@@ -389,7 +412,7 @@ while True:
                     #flipped attack anim ~AS
                     p2AttackBox = (p2.pos.centerx-125, p2.pos.centery-50, 50, 50)
                     #P2 left attack box ~AS
-                    pygame.draw.rect(bg, (255,0,0), p2AttackBox,2)
+                    #pygame.draw.rect(bg, (255,0,0), p2AttackBox,2)
                     #Debugging draw, comment out later ~AS
             else:
                 #during lag ~AS
@@ -410,7 +433,7 @@ while True:
                     #jump attack animation ~AS
                     p2AttackBox = (p2.pos.centerx+75, p2.pos.centery+70, 50, 50)
                     #P2 right attack box ~AS
-                    pygame.draw.rect(bg, (255,0,0), p2AttackBox,2)
+                    #pygame.draw.rect(bg, (255,0,0), p2AttackBox,2)
                     #Debugging draw, comment out later ~AS
                     
                 else:
@@ -419,7 +442,7 @@ while True:
                     #flipped jump attack animation ~AS
                     p2AttackBox = (p2.pos.centerx-125, p2.pos.centery+50, 50, 50)
                     #P2 left attack box ~AS
-                    pygame.draw.rect(bg, (255,0,0), p2AttackBox,2)
+                    #pygame.draw.rect(bg, (255,0,0), p2AttackBox,2)
                     #Debugging draw, comment out later ~AS
             else:
                 #during lag ~AS
@@ -455,17 +478,18 @@ while True:
     colideP1Attack = (pygame.Rect(p1AttackBox)).colliderect(pygame.Rect(p2Hitbox))
     if colideP1Attack and attackCountdown1 > 0 and canAttackp1:
         #does damage temp thing
-        p2Health -= 20
+        
+        OnHit(p1,p2)
         canAttackp1 = False
         #debug health print
-        print("P2 health = " + str(p2Health))
+        print("P2 health = " + str(p2.health))
     colideP2Attack = (pygame.Rect(p2AttackBox)).colliderect(pygame.Rect(p1Hitbox))
     if colideP2Attack and attackCountdown2 > 0 and canAttackp2:
         #does damge:
-        p1Health -= 20
+        OnHit(p2,p1)
         canAttackp2 = False
         #debug health print
-        print("P1 health = " + str(p1Health))
+        print("P1 health = " + str(p1.health))
 
     
     if attackCountdown1 <= 0:

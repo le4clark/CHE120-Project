@@ -12,6 +12,11 @@ class Player2:
       self.p2CrouchAttackAnim = [pygame.image.load("WhiGooseAnimations/frame0006.png"),pygame.image.load("WhiGooseAnimations/frame0007.png")]
       self.p2JumpIdleAnim = [pygame.image.load("WhiGooseAnimations/frame0008.png"),pygame.image.load("WhiGooseAnimations/frame0009.png")]
       self.p2JumpAttackAnim = [pygame.image.load("WhiGooseAnimations/frame0010.png")]
+      self.kbx = 0
+      self.kby = 0
+      #knockback values ~LC
+      self.health = 100
+      #Player health ~LC
       #temp just one image ~MA
       self.image = self.p2StandIdleAnim[0]
       #gets image rect ~MA

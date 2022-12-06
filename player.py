@@ -12,6 +12,11 @@ class Player1:
       self.p1CrouchAttackAnim = [pygame.image.load("CanGooseAnimations/frame0006.png"),pygame.image.load("CanGooseAnimations/frame0007.png")]
       self.p1JumpIdleAnim = [pygame.image.load("CanGooseAnimations/frame0008.png"),pygame.image.load("CanGooseAnimations/frame0009.png")]
       self.p1JumpAttackAnim = [pygame.image.load("CanGooseAnimations/frame0010.png")]
+      self.kbx = 0
+      self.kby = 0
+      #Knockback ~LC
+      self.health = 100
+      #Player health ~LC
       #temp just one image ~MA
       self.image = self.p1StandIdleAnim[0]
       #gets image rect ~MA
